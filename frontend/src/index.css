@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+  @apply w-full p-2 mb-4 border rounded;
+}
+
+.btn-primary {
+  @apply w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition;
+}
+
+.glow-card {
+  transition: all 0.3s ease;
+}
+
+.glow-card:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
+  transform: translateY(-2px);
+}
+
+body {
+  @apply bg-gray-100 dark:bg-gray-900 transition-colors duration-500;
+}
+
+.glow-icon {
+  transition: all 0.3s ease;
+}
+
+.glow-icon:hover {
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+  transform: scale(1.1);
+}
+
+/* Remove Recharts focus & hover outlines */
+.recharts-wrapper,
+.recharts-surface,
+.recharts-layer,
+svg {
+  outline: none !important;
+}
+
+.recharts-wrapper *:focus {
+  outline: none !important;
+}
+
+/* Ripple Effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  display: block;
+  border-radius: 50%;
+  transform: scale(1);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple:active::after {
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(40);
+    opacity: 0;
+  }
+}
+
+/* Global Smooth Transitions */
+.smooth {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar Item Hover */
+.nav-item {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  transform: translateX(6px);
+}
+
+/* Icon Micro Interaction */
+.icon-hover {
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.icon-hover:hover {
+  transform: scale(1.15) rotate(2deg);
+  text-shadow: 0 0 12px rgba(255,255,255,0.8);
+}
+
+/* Card Hover */
+.card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Skeleton Loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e7eb 25%,
+    #f3f4f6 37%,
+    #e5e7eb 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+  border-radius: 6px;
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    #374151 25%,
+    #4b5563 37%,
+    #374151 63%
+  );
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.active-scale:active {
+  transform: scale(0.96);
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.5);
+}
+
+.icon-bounce:hover {
+  animation: bounce 0.4s;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.gradient-bg {
+  background: linear-gradient(270deg,#6366f1,#22c55e,#ec4899);
+  background-size: 600% 600%;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100% {background-position:0% 50%}
+}
+
+.active-link {
+  background: rgba(255,255,255,0.2);
+  border-left: 4px solid #fff;
+}
+
+.active-link {
+  background: rgba(255,255,255,0.2);
+  border-left: 4px solid #fff;
+}
+
+.page-enter {
+  filter: blur(5px);
+}
+.page-enter-active {
+  filter: blur(0);
+  transition: 0.3s;
+}
+
+.auth-card{
+  background:white;
+  padding:30px;
+  width:320px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.auth-card input,
+.auth-card select{
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+}
+
+.auth-card button{
+  background:#4f46e5;
+  color:white;
+  padding:10px;
+  border-radius:6px;
+  transition:0.3s;
+}
+
+.auth-card button:hover{
+  background:#4338ca;
+}
