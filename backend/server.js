@@ -17,8 +17,7 @@ const app = express();
 app.use(cors());
 
 app.use(cors({
-  origin: "https://smart-expense-tracker-wine.vercel.app",
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  origin: "https://smart-expense-tracker-lovat.vercel.app", 
   credentials: true
 }));
 app.use(express.json());
