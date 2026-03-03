@@ -1,22 +1,15 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (to, subject, text) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  await transporter.sendMail({
-    from: process.env.EMAIL,
+  await resend.emails.send({
+    from: "Deepak@resend.dev",
     to,
     subject,
     text,
   });
+
   console.log("Email sent successfully to", to);
 };
 
