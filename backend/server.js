@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 
 app.use(cors({
-  origin: "https://smart-expense-tracker-lovat.vercel.app", 
+  origin: "https://smart-expense-tracker-red.vercel.app", 
   credentials: true
 }));
 app.use(express.json());
