@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://smart-expense-tracker-v7jb.onrender.com"
+  baseURL: "smart-expense-tracker-wine.vercel.app"
 });
 
 API.interceptors.request.use((req) => {
