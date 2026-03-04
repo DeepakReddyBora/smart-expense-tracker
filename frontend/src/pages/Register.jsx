@@ -15,7 +15,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await API.post("/auth/register", {
+      await API.post("/auth/register", {
         name,
         email,
         password,
@@ -24,7 +24,7 @@ export default function Register() {
 
       // ✅ Redirect to OTP page with EMAIL
       navigate("/verify-otp", {
-        state: { email: res.data.email }
+        state: { email }
       });
 
     } catch (err) {
