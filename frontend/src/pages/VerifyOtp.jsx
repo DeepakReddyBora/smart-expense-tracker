@@ -28,7 +28,7 @@ export default function VerifyOtp() {
 
   const verify = async () => {
     try {
-      await API.post("/api/auth/verify-otp", { email, otp });
+      await API.post("/auth/verify-otp", { email, otp });
       alert("Registered Successfully 🎉");
       navigate("/");
     } catch (err) {
@@ -38,7 +38,7 @@ export default function VerifyOtp() {
 
   const resend = async () => {
     try {
-      await API.post("/api/auth/resend-otp", { email });
+      await API.post("/auth/resend-otp", { email });
       setTime(60);
       alert("OTP resent");
     } catch {
