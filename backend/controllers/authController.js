@@ -38,7 +38,6 @@ export const registerUser = async (req, res) => {
     sendEmail(
       email,
       "Verify Your Account",
-      `Your OTP is ${otp}`
     );
 
     console.log("Email sent");
