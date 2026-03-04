@@ -33,7 +33,9 @@ export const registerUser = async (req, res) => {
 
     console.log("User saved in DB");
 
-    await sendEmail(
+    res.status(200).json({ email });
+
+    sendEmail(
       email,
       "Verify Your Account",
       `Your OTP is ${otp}`
@@ -41,7 +43,6 @@ export const registerUser = async (req, res) => {
 
     console.log("Email sent");
 
-    res.status(200).json({ email });
 
   } catch (error) {
     console.log("REGISTER ERROR:", error.message);
