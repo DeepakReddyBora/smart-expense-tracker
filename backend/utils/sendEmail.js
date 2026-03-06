@@ -8,27 +8,22 @@ export const sendEmail = async (to, otp) => {
       secure: true, 
       auth: {
         user: process.env.EMAIL,
-        pass: process.env.APP_PASSWORD, 
+        pass: process.env.APP_PASSWORD,
       },
-      // --- THE CRITICAL NETWORK FIXES ---
-      family: 4,           // Forces IPv4 (Fixes ENETUNREACH)
-      connectionTimeout: 10000, 
-      greetingTimeout: 5000,
+      // THIS IS THE FIX FOR ENETUNREACH
+      family: 4 
     });
-
-    console.log(`Attempting to send OTP to: ${to}...`);
 
     await transporter.sendMail({
       from: `"Smart Expense Tracker" <${process.env.EMAIL}>`,
-      to: to,
+      to: to, // This sends to the user's email, not yours!
       subject: "Verify Your Account",
       text: `Your OTP is ${otp}`,
       html: `<b>Your OTP is ${otp}</b>`,
     });
 
-    console.log("SUCCESS: Email sent to", to);
-
+    console.log(`SUCCESS: OTP sent to ${to}`);
   } catch (error) {
-    console.error("CRITICAL MAILER ERROR:", error.message);
+    console.error("MAILER ERROR:", error.message);
   }
 };
