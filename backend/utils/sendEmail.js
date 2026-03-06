@@ -10,8 +10,9 @@ export const sendEmail = async (to, otp) => {
         user: process.env.EMAIL,
         pass: process.env.APP_PASSWORD,
       },
-      // THIS IS THE FIX FOR ENETUNREACH
-      family: 4 
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     await transporter.sendMail({
