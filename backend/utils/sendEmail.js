@@ -1,3 +1,5 @@
+import nodemailer from "nodemailer";
+
 export const sendEmail = async (to, otp) => {
   console.log(`Attempting to send OTP to: ${to}...`); // LOG 1: Track start
 
@@ -21,7 +23,7 @@ export const sendEmail = async (to, otp) => {
       subject: "Verify Your Account",
       text: `Your OTP is ${otp}`,
     });
-
+ 
     // LOG 4: This is the most important log
     console.log("SUCCESS! Message ID:", info.messageId);
     console.log("Server Response:", info.response); 
