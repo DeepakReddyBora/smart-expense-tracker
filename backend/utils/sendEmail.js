@@ -1,15 +1,13 @@
-import nodemailer from "nodemailer";
+import nodemailer from "nodemailer"; // <--- ADD THIS LINE AT THE TOP
 
 export const sendEmail = async (to, otp) => {
-  console.log(`Attempting to send OTP to: ${to}...`); 
-
   try {
-    // This is where the crash happens if 'import' is missing
+    // This line crashes if the import above is missing
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL,
-        pass: process.env.APP_PASSWORD, 
+        pass: process.env.APP_PASSWORD,
       },
     });
 
@@ -20,7 +18,7 @@ export const sendEmail = async (to, otp) => {
       text: `Your OTP is ${otp}`,
     });
 
-    console.log("SUCCESS: Email sent to user"); // Move this log HERE
+    console.log("SUCCESS: Mail actually sent to:", to);
 
   } catch (error) {
     console.error("CRITICAL MAILER ERROR:", error.message);
