@@ -6,20 +6,13 @@ import { sendEmail } from "../utils/sendEmail.js";
 export const registerUser = async (req, res) => {
   try {
     console.log("Register API hit");
-    console.log("Body:", req.body);
-
     const { name, email, password, gender } = req.body;
 
     const exists = await User.findOne({ email });
-    if (exists) {
-      console.log("User already exists");
-      return res.status(400).json({ message: "User exists" });
-    }
+    if (exists) return res.status(400).json({ message: "User exists" });
 
     const hashed = await bcrypt.hash(password, 10);
-
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    console.log("Generated OTP:", otp);
 
     const user = await User.create({
       name,
@@ -31,17 +24,16 @@ export const registerUser = async (req, res) => {
       isVerified: false
     });
 
-    console.log("User saved in DB");
+    console.log("User saved in DB. Sending email...");
 
-    res.status(200).json({ email });
+    // FIX 1: Use 'await' so the process doesn't crash in the background
+    // FIX 2: Pass 'otp' as the second argument
+    await sendEmail(email, otp); 
 
-    sendEmail(
-      email,
-      "Verify Your Account",
-    );
+    console.log("SUCCESS: Email sent and process complete");
 
-    console.log("Email sent");
-
+    // FIX 3: Send response AFTER the email logic succeeds
+    res.status(200).json({ email, message: "OTP sent to email" });
 
   } catch (error) {
     console.log("REGISTER ERROR:", error.message);
