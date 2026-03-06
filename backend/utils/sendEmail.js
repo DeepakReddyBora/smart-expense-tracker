@@ -1,42 +1,31 @@
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
-
-const oAuth2Client = new google.auth.OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
-
-oAuth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN,
-});
 
 export const sendEmail = async (to, otp) => {
   try {
-    const accessToken = await oAuth2Client.getAccessToken();
-
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for port 465
       auth: {
-        type: "OAuth2",
         user: process.env.EMAIL,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: accessToken.token,
+        pass: process.env.APP_PASSWORD,
       },
+      // Railway Tip: Increase timeout to prevent early drops
+      connectionTimeout: 10000, 
+      greetingTimeout: 10000,
     });
 
     await transporter.sendMail({
-      from: process.env.EMAIL,
-      to,
+      from: `"Support" <${process.env.EMAIL}>`,
+      to: to,
       subject: "Verify Your Account",
       text: `Your OTP is ${otp}`,
+      html: `<strong>Your OTP is ${otp}</strong>`,
     });
 
-    console.log("Email sent via Gmail");
-
+    console.log("Email sent successfully to:", to);
   } catch (error) {
-    console.log("EMAIL ERROR:", error);
+    console.error("SMTP Error Details:", error.message);
+    throw error; // Let Railway logs capture the specific failure
   }
 };
