@@ -1,31 +1,31 @@
 import nodemailer from "nodemailer";
 
+// Simple, direct SMTP transport
 export const sendEmail = async (to, otp) => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // true for port 465
+      service: "gmail",
       auth: {
         user: process.env.EMAIL,
-        pass: process.env.APP_PASSWORD,
+        pass: process.env.APP_PASSWORD, // Use the 16-character App Password here
       },
-      // Railway Tip: Increase timeout to prevent early drops
-      connectionTimeout: 10000, 
-      greetingTimeout: 10000,
     });
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Support" <${process.env.EMAIL}>`,
       to: to,
       subject: "Verify Your Account",
       text: `Your OTP is ${otp}`,
-      html: `<strong>Your OTP is ${otp}</strong>`,
+      html: `<b>Your OTP is ${otp}</b>`,
     });
 
-    console.log("Email sent successfully to:", to);
+    console.log("Email sent successfully: %s", info.messageId);
+    return true;
+
   } catch (error) {
-    console.error("SMTP Error Details:", error.message);
-    throw error; // Let Railway logs capture the specific failure
+    // This will now give you a specific "Invalid Login" or "Connection" error
+    // instead of the OAuth refresh token error.
+    console.error("SMTP ERROR:", error.message);
+    return false;
   }
 };
