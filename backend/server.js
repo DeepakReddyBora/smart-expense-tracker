@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 dotenv.config({path: "./.env"});
-import dotenv from "dotenv";
 if (process.env.NODE_ENV !== 'production') {
     dotenv.config(); // Only look for .env file if we are NOT on Railway/Production
 }
